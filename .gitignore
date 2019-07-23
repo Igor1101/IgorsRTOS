@@ -1,0 +1,12 @@
+# please include here settings you use 
+# with your IDEs such as eclipse etc
+# for C
+*.o
+*~
+*.d
+*.bin
+*.elf
+# for eclipse
+.cproject
+.project
+*.settings
