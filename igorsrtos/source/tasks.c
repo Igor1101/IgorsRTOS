@@ -70,6 +70,7 @@ void rtos_tasks_init(void)
 	}
 	task_current = 0;
 	task_max = 0;
+	_port_tick_timer_init(RTOS_TASK_SCHEDULE_FREQ, schedule_callback);
 }
 
 PRIVATE void schedule_callback(void)

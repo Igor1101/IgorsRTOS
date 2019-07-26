@@ -4,6 +4,7 @@
  *  Created on: Jul 21, 2019
  *      Author: igor
  */
+#include <tasks.h>
 #include "rtos.h"
 
 PRIVATE BOOL _initialized = FALSE;
@@ -24,7 +25,8 @@ void rtos_init(void)
 		return;
 	}
 	int i=0;
-	//tick_timer_init(RTOS_SCHEDULE_FREQ, schedule_callback);
+	/* init tasks */
+	rtos_tasks_init();
 	_initialized = TRUE;
 }
 
