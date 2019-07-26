@@ -35,9 +35,7 @@ void _port_tick_timer_init(int schedfreq, void* callback)
 {
 	timer_period.it_value.tv_nsec = schedfreq ;
 	_schedfreq = schedfreq;
-	pr_rtos("creating timer");
 	timer_create(clkid, &sevp, &timerid);
-	pr_rtos("setting time");
 	timer_settime(timerid, 0, &timer_period, NULL);
 	_rtos_callback = callback;
 }
@@ -45,7 +43,6 @@ void _port_tick_timer_init(int schedfreq, void* callback)
 PRIVATE void __timer_has_expired(union sigval timer_data)
 {
     //printf("Timer expiration handler function; %d\n", *(int *) timer_data.sival_ptr);
-	puts("timer expired");
     ((void (*)(void))_rtos_callback)();
     _port_tick_timer_init(_schedfreq, _rtos_callback);
 }

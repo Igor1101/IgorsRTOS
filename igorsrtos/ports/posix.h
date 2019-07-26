@@ -34,7 +34,7 @@ typedef struct {
 #endif
 #define RTOS_PORT_NAME "POSIX" STR(_POSIX_VERSION)
 /* define here printing function (or implement it) */
-#define pr_rtos(...) fprintf(stderr, __VA_ARGS__); fprintf(stderr,"\n\r")
+#define pr_rtos(...) do { fprintf(stderr, __VA_ARGS__); fprintf(stderr,"\n\r");} while(0)
 /* rtos timing */
 /* rtos Sec per timer counts */
 #define TIMER_S(X) (1000*1000*1000*(X))
