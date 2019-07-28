@@ -8,6 +8,9 @@
 #include "rtos.h"
 
 PRIVATE BOOL _initialized = FALSE;
+rtos_task_type_t __current_task;
+
+PRIVATE void _rtos_tick_timer_callback(void);
 
 void rtos_sleep(u32 time)
 {
@@ -27,7 +30,14 @@ void rtos_init(void)
 	int i=0;
 	/* init tasks */
 	rtos_tasks_init();
+	/* init timer */
+	_port_tick_timer_init(RTOS_TASK_SCHEDULE_FREQ, _rtos_tick_timer_callback);
 	_initialized = TRUE;
+}
+
+PRIVATE void _rtos_tick_timer_callback(void)
+{
+	_rtos_tasks_schedule_callback();
 }
 
 
@@ -35,4 +45,9 @@ void rtos_init(void)
 BOOL rtos_is_initialized(void)
 {
 	return _initialized;
+}
+
+rtos_task_type_t rtos_current_task(void)
+{
+	return __current_task;
 }

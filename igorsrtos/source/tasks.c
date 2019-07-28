@@ -1,17 +1,12 @@
 /*
- * scheduler.c
  *
  *  Created on: Jul 16, 2019
  *      Author: Igor
  */
 
 
-//#include <jendefs.h>
-//#include <Utils/ticktimer.h>
-//#include <AppHardwareApi.h>
 #include <rtos.h>
 #include "tasks.h"
-//#include "device_conf.h"
 
 PRIVATE void schedule_callback(void);
 PRIVATE void empty_task_callback(void* msg);
@@ -20,6 +15,7 @@ PRIVATE rtostask_t taskarray[RTOS_MAX_TASKS];
 PRIVATE int task_current;
 PRIVATE int task_max;
 
+extern rtos_task_type_t __current_task;
 
 
 int rtos_add_task(rtostask_t* task)
@@ -70,10 +66,9 @@ void rtos_tasks_init(void)
 	}
 	task_current = 0;
 	task_max = 0;
-	_port_tick_timer_init(RTOS_TASK_SCHEDULE_FREQ, schedule_callback);
 }
 
-PRIVATE void schedule_callback(void)
+void _rtos_tasks_schedule_callback(void)
 {
 	/* current thread changes */
 	if(thread_current.state == FREEZED|| thread_current.state == FREEZED_CONTEXT_SAVED) {

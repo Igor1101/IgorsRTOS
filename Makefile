@@ -19,13 +19,14 @@ APP_SRC := main.c
 APP_SRC += rtos.c
 APP_SRC += tasks.c
 APP_SRC += thread.c
+APP_SRC += mutex.c
 APP_SRC += $(strip $(PLATFORM)).c
 # app includes
 INCFLAGS +=-I$(APP_PATH)
 # rtos includes
 INCFLAGS += -I$(RTOS_PATH)
 INCFLAGS += -I$(RTOS_INCLUDES_PATH)
-CFLAGS = -c -g
+CFLAGS = -c -g -Wall
 
 # build
 COBJS = $(patsubst %.c,%.o,$(APP_SRC))

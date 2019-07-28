@@ -10,11 +10,20 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 #include <rtos/types.h>
 /* here we define ports file */
 #if (defined PORT_POSIX)
 #include <ports/posix.h>
 #endif /* ports */
+/* types defined here */
+typedef enum {
+	IS_TASK,
+	IS_THREAD,
+	IS_PROCESS,
+	IS_INTERRUPT
+} rtos_task_type_t;
+extern rtos_task_type_t __current_task;
 /* functions those must be defined with ports */
 #if !(defined pr_rtos)
 #error "couldn`t find pr_rtos function"

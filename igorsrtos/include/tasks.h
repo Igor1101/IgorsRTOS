@@ -15,14 +15,17 @@ extern "C" {
 #define RTOS_TASK_SCHEDULE_FREQ	TIMER_MS(1)
 #define RTOS_MAX_TASKS 20
 
-#ifndef TIMER_S
-#define TIMER_S(X) (X)*32*1024*1024
-#define TIMER_MS(X) (X)*32*1024
-#endif
+
+typedef enum {
+	TASK_RUNNING,
+	TASK_SLEEPING,
+	TASK_DEAD
+} taskstate_t;
 
 typedef struct {
 	void (*function)(void*);
 	void* msg;
+	taskstate_t state;
 } rtostask_t;
 
 void rtos_tasks_init(void);
@@ -30,6 +33,7 @@ int rtos_add_task(rtostask_t* task);
 int rtos_putmsg_task(void*msg, int tsknum);
 void rtos_sleep(u32 time);
 void rtos_start(void);
+void _rtos_tasks_schedule_callback(void);
 #ifdef __cplusplus
 }
 #endif
