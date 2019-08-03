@@ -91,7 +91,8 @@ int rtos_mutex_unsaferemove(rtosmutex_var_t variable)
 
 int rtos_mutex_lock(rtosmutex_var_t variable)
 {
-	while(rtos_mutex_locked(variable));
+	while(rtos_mutex_locked(variable)) {
+	}
 	int mxn = find_mutex(variable);
 	if(mxn == RTOS_FAILURE) {
 		pr_err("mutex: instance not found");
@@ -164,6 +165,6 @@ int rtos_mutex_get_instance(rtosmutex_t*mxp, rtosmutex_var_t variable)
 	if(mxp == NULL) {
 		return RTOS_FAILURE;
 	}
-	memcpy(mxp, &mxbuf[mxn], sizeof mxp);
+	*mxp = mxbuf[mxn];
 	return RTOS_SUCCESS;
 }

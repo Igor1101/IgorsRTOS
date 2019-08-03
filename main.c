@@ -13,10 +13,11 @@ int main()
 	int tsk1 = rtos_add_task(&task1);
 	rtos_task_allow_mutex(tsk1, RTOS_MUTEX(myvar));
 	pr_info("starting igorsrtos" " " RTOS_PORT_NAME);
-	while(1) {
 		rtos_sleep(TIMER_S(1));
+	while(1) {
 		pr_info("lock mutex...");
 		rtos_mutex_lock(RTOS_MUTEX(myvar));
+		rtos_sleep(TIMER_MS(100));
 		pr_info("done");
 		pr_info("myvar=%d", myvar);
 		pr_info("unlock...");
