@@ -8,7 +8,7 @@
 #include "rtos.h"
 
 PRIVATE BOOL _initialized = FALSE;
-rtos_task_type_t __current_task;
+rtos_task_type_t __current_task = IS_MAIN_THREAD;
 
 PRIVATE void _rtos_tick_timer_callback(void);
 

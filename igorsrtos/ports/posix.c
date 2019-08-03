@@ -43,6 +43,7 @@ void _port_tick_timer_init(int schedfreq, void* callback)
 PRIVATE void __timer_has_expired(union sigval timer_data)
 {
     //printf("Timer expiration handler function; %d\n", *(int *) timer_data.sival_ptr);
-    ((void (*)(void))_rtos_callback)();
+	if(_rtos_callback != NULL)
+		((void (*)(void))_rtos_callback)();
     _port_tick_timer_init(_schedfreq, _rtos_callback);
 }

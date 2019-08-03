@@ -20,8 +20,10 @@ extern "C" {
 typedef enum {
 	IS_TASK,
 	IS_THREAD,
+	IS_MAIN_THREAD,
 	IS_PROCESS,
-	IS_INTERRUPT
+	IS_INTERRUPT,
+	IS_UNKNOWN
 } rtos_task_type_t;
 extern rtos_task_type_t __current_task;
 /* functions those must be defined with ports */
@@ -33,6 +35,10 @@ extern rtos_task_type_t __current_task;
 #define pr_warn(...) pr_rtos("RTOS WARNING: " __VA_ARGS__)
 #define pr_err(...) pr_rtos("RTOS ERROR: " __VA_ARGS__)
 #define pr_fatal(...) pr_rtos("RTOS FATAL: " __VA_ARGS__)
+
+#define rtos_assert(expr) \
+	if (!(expr)) \
+	pr_err("assertion failed file %s, line %d",__FILE__, __LINE__)
 /* general rtos functions */
 BOOL rtos_is_initialized(void);
 void rtos_init(void);
